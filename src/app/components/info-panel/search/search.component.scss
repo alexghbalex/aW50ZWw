@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+
+  input {
+    margin-bottom: 5px;
+  }
+}
