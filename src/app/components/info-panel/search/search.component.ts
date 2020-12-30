@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { MapActions } from '../../../store/store.actions';
 
 type Status = 'VALID' | 'INVALID';
 
@@ -10,17 +12,17 @@ type Status = 'VALID' | 'INVALID';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  searchString = new FormControl('', Validators.required);
+  searchRequest = new FormControl('', [Validators.required, Validators.maxLength(256)]);
   status$: Observable<Status>;
 
-  constructor() {
+  constructor(private store: Store) {
   }
 
   ngOnInit(): void {
-    this.status$ = this.searchString.statusChanges;
+    this.status$ = this.searchRequest.statusChanges;
   }
 
-  search() {
-
+  search(): void {
+    this.store.dispatch(MapActions.searchRequest({ searchRequest: this.searchRequest.value }));
   }
 }

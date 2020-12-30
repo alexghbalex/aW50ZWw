@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './store/store.reducer';
@@ -16,6 +15,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { ListAnnotationsComponent } from './components/info-panel/list-annotations/list-annotations.component';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreEffects } from './store/store.effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,11 @@ import { ListAnnotationsComponent } from './components/info-panel/list-annotatio
   imports: [
     BrowserModule,
     StoreModule.forRoot({ count: reducer }),
+    EffectsModule.forRoot([StoreEffects]),
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatButtonModule,
     MatInputModule,
     MatListModule
