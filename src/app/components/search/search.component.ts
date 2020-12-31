@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { MapActions } from '../../../store/store.actions';
+import { MapActions } from '../../store/store.actions';
 
 type Status = 'VALID' | 'INVALID';
 

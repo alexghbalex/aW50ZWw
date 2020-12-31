@@ -7,9 +7,15 @@
   .buttons {
     display: flex;
     justify-content: space-around;
+
+    button {
+      margin: 10px;
+    }
   }
 
-  button {
-    margin: 10px;
+  mat-list {
+    button {
+      width: 100px;
+    }
   }
 }

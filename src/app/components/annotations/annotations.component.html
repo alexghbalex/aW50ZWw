@@ -1,0 +1,16 @@
+<h2>Annotations</h2>
+
+<div class="buttons">
+  <button mat-stroked-button color="primary" *ngFor="let button of buttons"
+          (click)="setAnnotation(button.annotation)">{{button.name}}</button>
+</div>
+
+<mat-list role="list">
+  <mat-list-item role="listitem"
+                 *ngFor="let annotation of annotations | keyvalue"
+                 [id]="annotation.key"
+                 [ngClass]="{active: selectedAnnotation === annotation.key}">
+    <button mat-button color="primary" (click)="selectAnnotation(annotation.value)">{{annotation.value.geometry.type}}</button>
+    <button mat-icon-button color="warn" (click)="removeAnnotation(annotation.key)"><mat-icon>delete</mat-icon></button>
+  </mat-list-item>
+</mat-list>

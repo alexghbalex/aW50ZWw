@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActionButtonsComponent } from './action-buttons.component';
+import { AnnotationsComponent } from './annotations.component';
 
-describe('ActionButtonsComponent', () => {
-  let component: ActionButtonsComponent;
-  let fixture: ComponentFixture<ActionButtonsComponent>;
+describe('ListAnnotationsComponent', () => {
+  let component: AnnotationsComponent;
+  let fixture: ComponentFixture<AnnotationsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActionButtonsComponent ]
+      declarations: [ AnnotationsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActionButtonsComponent);
+    fixture = TestBed.createComponent(AnnotationsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
