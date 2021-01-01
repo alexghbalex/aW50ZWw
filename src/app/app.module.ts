@@ -30,7 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ annotations: reducer }),
+    StoreModule.forRoot({ data: reducer }),
     EffectsModule.forRoot([StoreEffects]),
     AppRoutingModule,
     ReactiveFormsModule,

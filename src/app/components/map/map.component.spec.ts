@@ -15,7 +15,7 @@ describe('MapComponent', () => {
       declarations: [MapComponent],
       imports: [HttpClientTestingModule],
       providers: [
-        { provide: Store, useValue: initialState }
+        { provide: Store, useValue: { data: initialState } }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

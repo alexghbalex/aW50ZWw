@@ -14,7 +14,7 @@ describe('AnnotationsComponent', () => {
       declarations: [AnnotationsComponent],
       imports: [HttpClientTestingModule],
       providers: [
-        provideMockStore({ initialState }),
+        provideMockStore({ initialState: { data: initialState } }),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

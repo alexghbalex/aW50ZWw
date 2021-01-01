@@ -1,9 +1,9 @@
 import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { MapService } from '../../services/map.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Annotations, FeatureWithCenter, Shapes } from '../../models';
-import { AppState, selectAnnotations } from '../../store';
+import { AppState, selectAnnotations, selectedAnnotation } from '../../store';
+import { MapActions } from '../../store/store.actions';
 
 @Component({
   selector: 'app-annotations',
@@ -18,12 +18,15 @@ export class AnnotationsComponent implements OnInit, OnDestroy, AfterContentInit
   ];
   private subscription: Subscription;
   annotations: Annotations;
+  selectedAnnotation: Observable<FeatureWithCenter>;
 
-  constructor(private store: Store<AppState>, public mapService: MapService) {
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
-    this.subscription = this.store.select(selectAnnotations).subscribe(annotations => this.annotations = annotations);
+    this.subscription = this.store.select(selectAnnotations)
+      .subscribe((annotations: Annotations) => this.annotations = annotations);
+    this.selectedAnnotation = this.store.select(selectedAnnotation);
   }
 
   ngOnDestroy(): void {
@@ -33,18 +36,18 @@ export class AnnotationsComponent implements OnInit, OnDestroy, AfterContentInit
   }
 
   ngAfterContentInit(): void {
-    this.mapService.drawInit(this.annotations);
+    this.store.dispatch(MapActions.initDraw({ annotations: this.annotations }));
   }
 
-  setAnnotation(annotation: string): void {
-    this.mapService.setAnnotation(annotation);
+  addAnnotation(annotation: string): void {
+    this.store.dispatch(MapActions.addAnnotation({ annotation }));
   }
 
   removeAnnotation(id: string): void {
-    this.mapService.removeAnnotation(id);
+    this.store.dispatch(MapActions.removeAnnotation({ annotationId: id }));
   }
 
   selectAnnotation(currentFeature: FeatureWithCenter): void {
-    this.mapService.selectAnnotation(currentFeature);
+    this.store.dispatch(MapActions.selectAnnotation({ annotation: currentFeature, toMap: true }));
   }
 }

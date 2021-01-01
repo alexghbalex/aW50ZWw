@@ -1,13 +1,11 @@
-import { Annotations } from '../models';
-import { createSelector } from '@ngrx/store';
+import { Annotations, FeatureWithCenter } from '../models';
 
 export interface AppState {
-  annotations: Annotations;
+  data: {
+    annotations: Annotations;
+    selectedAnnotation: FeatureWithCenter;
+  };
 }
 
-export const select = (state: AppState) => state;
-
-export const selectAnnotations = createSelector(
-  select,
-  (state) => state.annotations
-);
+export const selectAnnotations = (state: AppState) => state.data.annotations;
+export const selectedAnnotation = (state: AppState) => state.data.selectedAnnotation;

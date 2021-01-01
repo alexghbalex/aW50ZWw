@@ -25,10 +25,6 @@ export class MapService {
   constructor(private http: HttpClient, private store: Store<AppState>) {
   }
 
-  getSelectedAnnotation(): string | number {
-    return this.selectedAnnotation;
-  }
-
   buildMap(): void {
     this.map = new mapboxgl.Map({
       container: 'map',
@@ -50,7 +46,7 @@ export class MapService {
     this.map.setZoom(zoom);
   }
 
-  drawInit(annotations: Annotations): void {
+  initDraw(annotations: Annotations): void {
     this.draw = new MapboxDraw({
       displayControlsDefault: false,
       modes: MapboxDraw.modes
@@ -65,20 +61,20 @@ export class MapService {
             }
           }
         })
-        .on('draw.create', e => this.store.dispatch(MapActions.addAnnotation({ annotation: e.features[0] })))
-        .on('draw.selectionchange', e => e.features.length !== 0 && (this.selectedAnnotation = e.features[0].id))
+        .on('draw.create', e => this.store.dispatch(MapActions.createAnnotation({ annotation: e.features[0] })))
+        .on('draw.selectionchange',
+            e => e.features.length !== 0 && this.store.dispatch(MapActions.selectAnnotation({ annotation: e.features[0], toMap: false })))
         .on('draw.delete', e => e.features.forEach(annotation => this.removeAnnotation(annotation.id)));
 
       this.map.addControl(this.draw);
     }
   }
 
-  setAnnotation(annotation: string): void {
+  addAnnotation(annotation: string): void {
     this.draw.changeMode(annotation);
   }
 
   removeAnnotation(id: string): void {
-    this.store.dispatch(MapActions.removeAnnotation({ annotationId: id }));
     this.draw.delete(id);
   }
 
@@ -98,7 +94,6 @@ export class MapService {
         break;
       default:
     }
-    this.selectedAnnotation = currentFeature.id;
   }
 
   private getZoom(bbox: number[]): number {

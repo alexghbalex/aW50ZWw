@@ -13,7 +13,7 @@ describe('SearchComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SearchComponent],
       providers: [
-        { provide: Store, useValue: initialState }
+        { provide: Store, useValue: { data: initialState } }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

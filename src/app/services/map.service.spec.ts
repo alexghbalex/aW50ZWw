@@ -11,7 +11,7 @@ describe('MapService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, StoreModule],
       providers: [
-        { provide: Store, useValue: initialState }
+        { provide: Store, useValue: { data: initialState }  }
       ],
     });
     service = TestBed.inject(MapService);

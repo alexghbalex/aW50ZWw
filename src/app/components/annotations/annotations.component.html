@@ -2,14 +2,14 @@
 
 <div class="buttons">
   <button mat-stroked-button color="primary" *ngFor="let button of buttons"
-          (click)="setAnnotation(button.annotation)">{{button.name}}</button>
+          (click)="addAnnotation(button.annotation)">{{button.name}}</button>
 </div>
 
 <mat-list role="list">
   <mat-list-item role="listitem"
                  *ngFor="let annotation of annotations | keyvalue"
                  [id]="annotation.key">
-    <button mat-button color="{{mapService.getSelectedAnnotation() === annotation.key ? 'accent' : 'primary'}}"
+    <button mat-button color="{{(selectedAnnotation | async)?.id === annotation.key ? 'accent' : 'primary'}}"
             (click)="selectAnnotation(annotation.value)">{{annotation.value.geometry.type}}</button>
     <button mat-icon-button color="warn" (click)="removeAnnotation(annotation.key)">
       <mat-icon>delete</mat-icon>

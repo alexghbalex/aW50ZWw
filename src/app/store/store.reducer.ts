@@ -1,20 +1,32 @@
 import { createReducer, on } from '@ngrx/store';
-import { Annotations } from '../models';
 import { MapActions } from './store.actions';
 
-export const initialState: Annotations = {};
+export const initialState = {
+  annotations: {},
+  selectedAnnotation: null
+};
 
 const cReducer = createReducer(
   initialState,
-  on(MapActions.addAnnotation, (state, { annotation }) => ({
+  on(MapActions.createAnnotation, (state, { annotation }) => ({
     ...state,
-    [annotation.id]: annotation
+    annotations: {
+      ...state.annotations,
+      [annotation.id]: annotation
+    }
   })),
   on(MapActions.removeAnnotation, (state, { annotationId }) => {
-    const newState = Object.assign({}, state);
-    delete newState[annotationId];
-    return newState;
-  })
+    const annotations = Object.assign({}, state.annotations);
+    delete annotations[annotationId];
+    return {
+      ...state,
+      annotations
+    };
+  }),
+  on(MapActions.selectAnnotation, (state, { annotation }) => ({
+    ...state,
+    selectedAnnotation: annotation
+  }))
 );
 
 export function reducer(state, action): any {
