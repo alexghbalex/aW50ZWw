@@ -10,7 +10,7 @@ const cReducer = createReducer(
     ...state,
     [annotation.id]: annotation
   })),
-  on(MapActions.removedAnnotation, (state, { annotationId }) => {
+  on(MapActions.removeAnnotation, (state, { annotationId }) => {
     const newState = Object.assign({}, state);
     delete newState[annotationId];
     return newState;

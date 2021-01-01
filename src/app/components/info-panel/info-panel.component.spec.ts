@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { InfoPanelComponent } from './info-panel.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('InfoPanelComponent', () => {
   let component: InfoPanelComponent;
@@ -8,9 +8,10 @@ describe('InfoPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InfoPanelComponent ]
+      declarations: [InfoPanelComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

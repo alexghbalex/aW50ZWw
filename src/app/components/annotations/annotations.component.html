@@ -8,9 +8,11 @@
 <mat-list role="list">
   <mat-list-item role="listitem"
                  *ngFor="let annotation of annotations | keyvalue"
-                 [id]="annotation.key"
-                 [ngClass]="{active: selectedAnnotation === annotation.key}">
-    <button mat-button color="primary" (click)="selectAnnotation(annotation.value)">{{annotation.value.geometry.type}}</button>
-    <button mat-icon-button color="warn" (click)="removeAnnotation(annotation.key)"><mat-icon>delete</mat-icon></button>
+                 [id]="annotation.key">
+    <button mat-button color="{{mapService.getSelectedAnnotation() === annotation.key ? 'accent' : 'primary'}}"
+            (click)="selectAnnotation(annotation.value)">{{annotation.value.geometry.type}}</button>
+    <button mat-icon-button color="warn" (click)="removeAnnotation(annotation.key)">
+      <mat-icon>delete</mat-icon>
+    </button>
   </mat-list-item>
 </mat-list>
